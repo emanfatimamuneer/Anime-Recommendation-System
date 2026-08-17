@@ -32,20 +32,6 @@ The project demonstrates a complete machine learning workflow — from **data pr
 * **Data preprocessing** — Includes notebooks for cleaning and preparing the dataset.
 * **Streamlit interface** — Provides a simple and interactive user experience.
 
-## Screenshots
-
-### Home Page
-
-<p align="center">
-  <img src="screenshots/home.png" alt="Anime Recommendation System Home Page" width="850">
-</p>
-
-### Recommendations
-
-<p align="center">
-  <img src="screenshots/recommendations.png" alt="Anime Recommendations" width="850">
-</p>
-
 ## Technologies
 
 | Technology       | Purpose                                  |
