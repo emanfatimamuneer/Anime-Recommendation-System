@@ -1,102 +1,319 @@
-# Anime Recommendation System
+<p align="center">
+  <img src="images/image1.png" alt="Anime Recommendation System Preview" width="800">
+</p>
+<p align="center">
+  <img src="images/image2.png" alt="Anime Recommendation System Preview" width="800">
+</p>
+<h1 align="center">Anime Recommendation System</h1>
 
-A portfolio Streamlit application that recommends similar anime titles based on precomputed similarity data. Built as a demonstrable project to showcase data processing, feature engineering, and an interactive UI.
+<p align="center">
+  <em>Discover your next favorite anime through intelligent content-based recommendations.</em>
+</p>
+
+<p align="center">
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.x-blue.svg" alt="Python"></a>
+  <a href="https://streamlit.io/"><img src="https://img.shields.io/badge/Streamlit-App-FF4B4B.svg" alt="Streamlit"></a>
+  <a href="https://scikit-learn.org/"><img src="https://img.shields.io/badge/Scikit--learn-ML-orange.svg" alt="Scikit-learn"></a>
+</p>
 
 ---
 
-## Project overview
+Anime Recommendation System is an interactive **content-based recommendation application** built with Python and Streamlit. It analyzes anime metadata and textual features to recommend titles that are similar to the anime selected by the user.
 
-This project contains a Streamlit web application that allows users to select an anime title and receive tailored recommendations. The app uses precomputed recommendations (and optionally a similarity matrix used during model development) so the app runs quickly without expensive on-the-fly computations.
+The project demonstrates a complete machine learning workflow — from **data preprocessing and feature engineering to vectorization, cosine similarity, recommendation generation, and interactive application development**.
 
 ## Features
 
-- Interactive Streamlit interface for searching anime and viewing recommendations
-- Poster images displayed alongside recommended titles
-- Precomputed recommendation mapping for fast response times
-- Notebooks and scripts for reproducing dataset processing and building the similarity matrix
+* **Interactive search** — Select an anime and instantly receive recommendations.
+* **Content-based recommendations** — Finds similar anime using metadata and textual features.
+* **Anime posters** — Displays poster images alongside recommendations.
+* **Precomputed recommendations** — Uses a stored recommendation mapping for fast results.
+* **Feature engineering** — Combines relevant anime attributes to improve similarity.
+* **Data preprocessing** — Includes notebooks for cleaning and preparing the dataset.
+* **Streamlit interface** — Provides a simple and interactive user experience.
 
-## Technologies used
+## Screenshots
 
-- Python
-- Streamlit
-- Pandas, NumPy
-- scikit-learn (used to build the similarity matrix in notebooks)
-- Jupyter notebooks for experimentation and preprocessing
+### Home Page
 
-## How the recommendation system works
+<p align="center">
+  <img src="screenshots/home.png" alt="Anime Recommendation System Home Page" width="850">
+</p>
 
-1. Data is loaded and preprocessed in Jupyter notebooks (text/metadata features are combined and cleaned).
-2. Textual features are vectorized (for example, with CountVectorizer or TF-IDF) and cosine similarity is computed between items to build a similarity matrix.
-3. The similarity matrix is used to generate a recommendations map (top-N similar titles per anime) which is saved as `recommendations.pkl`.
-4. The Streamlit app (`app/app.py`) loads `datasets/processed/merged.csv` and `datasets/processed/recommendations.pkl` at runtime and serves recommendations instantly.
+### Recommendations
 
-## Dataset information
+<p align="center">
+  <img src="screenshots/recommendations.png" alt="Anime Recommendations" width="850">
+</p>
 
-- Raw source CSV files are included under `datasets/raw/` (for example: [datasets/raw/anime.csv](C:/Users/emanf/Desktop/anime recomendation system/datasets/raw/anime.csv) and [datasets/raw/entities.csv](C:/Users/emanf/Desktop/anime recomendation system/datasets/raw/entities.csv)).
-- Processed data used by the app is stored in `datasets/processed/merged.csv` and `datasets/processed/recommendations.pkl` (both included in this repository to allow the app to run out-of-the-box).
-- A large precomputed similarity matrix was generated during model development and is stored locally at `datasets/external/similarity.pkl`. This file is large (~530 MB) and is NOT included in the repository. See the note below.
+## Technologies
 
-## Important: similarity.pkl (NOT included)
+| Technology       | Purpose                                  |
+| ---------------- | ---------------------------------------- |
+| Python           | Core programming language                |
+| Streamlit        | Interactive web application              |
+| Pandas           | Data processing and manipulation         |
+| NumPy            | Numerical operations                     |
+| Scikit-learn     | Vectorization and similarity computation |
+| Jupyter Notebook | Data analysis and experimentation        |
+| Pickle           | Storing precomputed recommendations      |
 
-The similarity matrix `datasets/external/similarity.pkl` is large (~530 MB). It is intentionally excluded from the repository to keep the repo lightweight. The repository includes `recommendations.pkl`, a smaller (precomputed) mapping of recommendations, so the app can run without the full matrix.
+## How it works
 
-If you wish to reproduce the full similarity matrix locally, either:
+The recommendation system follows a content-based filtering approach.
 
-- Run the notebook that generates it (see `notebooks/` and `datasets/external/` notebooks) — be aware this can be computationally expensive and may require significant memory, or
-- Download the matrix from an externally hosted location (if provided) into `datasets/external/` as `similarity.pkl`.
+```text
+Raw Anime Data
+      ↓
+Data Cleaning & Preprocessing
+      ↓
+Feature Engineering
+      ↓
+Text / Metadata Vectorization
+      ↓
+Cosine Similarity
+      ↓
+Top-N Similar Anime
+      ↓
+Recommendation Mapping
+      ↓
+Streamlit Application
+```
 
-## Project structure
+### 1. Data preprocessing
 
-- [app/app.py](C:/Users/emanf/Desktop/anime recomendation system/app/app.py) — Streamlit application (main entrypoint)
-- [datasets/raw/](C:/Users/emanf/Desktop/anime recomendation system/datasets/raw/) — raw CSVs
-- [datasets/processed/merged.csv](C:/Users/emanf/Desktop/anime recomendation system/datasets/processed/merged.csv) — processed data used by the app
-- [datasets/processed/recommendations.pkl](C:/Users/emanf/Desktop/anime recomendation system/datasets/processed/recommendations.pkl) — precomputed recommendations used by the app
-- [datasets/external/similarity.pkl](C:/Users/emanf/Desktop/anime recomendation system/datasets/external/similarity.pkl) — large similarity matrix (NOT included in repo)
-- [notebooks/](C:/Users/emanf/Desktop/anime recomendation system/notebooks/) — analysis and preprocessing notebooks
+Anime metadata is loaded from the raw datasets and cleaned using Pandas.
 
-## Installation (Quick start)
+Relevant features are combined and prepared for the recommendation pipeline.
 
-1. Create and activate a Python virtual environment (recommended):
+### 2. Feature engineering
 
-   Windows (PowerShell):
-   ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```
+Textual and categorical anime information is transformed into useful features.
 
-2. Install runtime dependencies:
+Depending on the experiment, techniques such as **CountVectorizer** or **TF-IDF** can be used to convert textual information into numerical representations.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 3. Similarity calculation
 
-## Running the Streamlit app
+The system calculates **cosine similarity** between anime feature vectors.
 
-From the repository root run:
+Anime with more similar feature representations receive higher similarity scores.
+
+### 4. Recommendation generation
+
+For every anime, the most similar titles are identified and stored in:
+
+```text
+datasets/processed/recommendations.pkl
+```
+
+The Streamlit application then retrieves these precomputed recommendations instead of recalculating the complete similarity matrix for every request.
+
+## Dataset
+
+The project uses anime metadata stored in CSV format.
+
+### Raw data
+
+```text
+datasets/raw/
+├── anime.csv
+└── entities.csv
+```
+
+### Processed data
+
+```text
+datasets/processed/
+├── merged.csv
+└── recommendations.pkl
+```
+
+`merged.csv` contains the processed anime data used by the application.
+
+`recommendations.pkl` contains the precomputed recommendation mapping.
+
+## Similarity Matrix
+
+During model development, a complete similarity matrix was generated and stored locally as:
+
+```text
+datasets/external/similarity.pkl
+```
+
+The matrix is approximately **530 MB** and is intentionally excluded from the GitHub repository to keep the repository lightweight.
+
+The application does **not** require the full similarity matrix to run.
+
+Instead, it uses the smaller:
+
+```text
+datasets/processed/recommendations.pkl
+```
+
+which contains the top recommendations for each anime.
+
+## Project Structure
+
+```text
+anime-recommendation-system/
+│
+├── app/
+│   └── app.py
+│
+├── datasets/
+│   ├── raw/
+│   │   ├── anime.csv
+│   │   └── entities.csv
+│   │
+│   ├── processed/
+│   │   ├── merged.csv
+│   │   └── recommendations.pkl
+│   │
+│   └── external/
+│       ├── 02_notebook.ipynb
+│       ├── 03_notebook.ipynb
+│       └── similarity.pkl
+│
+├── screenshots/
+│   ├── home.png
+│   └── recommendations.png
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+> `similarity.pkl` is generated during development but is not included in the GitHub repository because of its large file size.
+
+## Installation
+
+### Clone the repository
+
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+cd YOUR-REPOSITORY
+```
+
+### Create a virtual environment
+
+#### Windows
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+#### macOS / Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Quick Start
+
+Start the Streamlit application from the project root:
 
 ```bash
 streamlit run app/app.py
 ```
 
-The app will open in your browser (usually at http://localhost:8501) and is ready to use with the included `datasets/processed/recommendations.pkl` and `merged.csv`.
+Streamlit will provide a local address similar to:
 
-## recommendations.pkl
+```text
+http://localhost:8501
+```
 
-`datasets/processed/recommendations.pkl` is a small pickled object (~2.8 MB) that contains a mapping of anime title -> list of recommended titles. This file is included in the repository so the app can serve recommendations quickly without recomputing the similarity matrix.
+Open the address in your browser and select an anime to receive recommendations.
 
-## Future improvements
+## Precomputed Recommendations
 
-- Add automated data processing scripts (CLI) to create the similarity matrix and recommendations mapping.
-- Provide a hosted download for the similarity matrix or use GitHub Releases / cloud storage for sharing large artifacts.
-- Add tests for data processing and recommendation outputs.
-- Improve CharMood feature and add more user controls (filters by genre, year, rating, etc.).
+The application uses:
+
+```text
+datasets/processed/recommendations.pkl
+```
+
+This file stores a mapping similar to:
+
+```text
+Anime Title
+    ↓
+Recommendation 1
+Recommendation 2
+Recommendation 3
+Recommendation 4
+Recommendation 5
+```
+
+Using precomputed recommendations allows the application to respond quickly without loading the complete similarity matrix.
+
+## Machine Learning Concepts
+
+This project demonstrates several important machine learning concepts:
+
+* Data preprocessing
+* Feature engineering
+* Text vectorization
+* Cosine similarity
+* Content-based filtering
+* Similarity matrices
+* Recommendation generation
+* Model artifact serialization
+
+## Limitations
+
+* Recommendations depend on the quality of available anime metadata.
+* The system does not currently learn individual user preferences.
+* New anime require the recommendation data to be regenerated.
+* The complete similarity matrix requires significant storage and memory.
+* Content-based recommendations may not capture subjective user preferences.
+
+## Future Improvements
+
+* Add genre filters.
+* Add rating and year filters.
+* Add anime type filters.
+* Introduce personalized recommendations.
+* Add user ratings and feedback.
+* Improve feature engineering.
+* Add automated preprocessing scripts.
+* Add recommendation evaluation metrics.
+* Deploy the application online.
+* Experiment with more advanced recommendation techniques.
+
+## Learning Outcomes
+
+Through this project, I gained practical experience with:
+
+* Python for machine learning
+* Pandas and NumPy
+* Data preprocessing
+* Feature engineering
+* Text vectorization
+* Scikit-learn
+* Cosine similarity
+* Recommendation systems
+* Streamlit application development
+* Managing machine learning artifacts with Git and GitHub
 
 ## Author
 
-- Your Name (replace with your preferred name)
-- Portfolio: (add link)
-- Contact: (add email/github)
+**Eman Fatima**
+
+BS Artificial Intelligence Student
+
+GitHub: `https://github.com/YOUR-USERNAME`
 
 ---
 
-If you want, I can now show a dry-run list of files that will be committed (based on the current workspace, honoring the `.gitignore`), and the list of files that will be ignored. I will not run any git commands or push until you explicitly approve.
+## License
+
+This project is created for **educational and portfolio purposes**.
+
