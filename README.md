@@ -2,7 +2,7 @@
   <img src="images/image1.png.jpg" alt="Anime Recommendation System Preview" width="800">
 </p>
 <p align="center">
-  <img src="images/image2.png" alt="Anime Recommendation System Preview" width="800">
+  <img src="images/image2.png.jpg" alt="Anime Recommendation System Preview" width="800">
 </p>
 <h1 align="center">Anime Recommendation System</h1>
 
